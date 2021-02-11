@@ -12,8 +12,27 @@ public class Database {
         return con;
     }
 
+    private static int getUserID(String login){
+        if(login==null || login.equals("")) return 0;
+        String query = "SELECT id FROM user WHERE login LIKE ?";
+        try{
+            Connection con = getConnection();
+            if(con!=null){
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, login);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next())
+                    return rs.getInt("id");
+            }
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public boolean insertNewUser(String login, String password){
-        if(login==null || login.equals("") || password==null || password.equals("")) return false;
+        if(login==null || login.equals("") || password==null || password.equals("") || password.length()<6) return false;
         String query = "INSERT INTO user (login, password) VALUES (?, ?)";
         String hash = new Hash().getMd5(password);
         try{
@@ -57,7 +76,8 @@ public class Database {
 
     public boolean changePassword(String login, String oldPassword, String newPassword){
         if(oldPassword.equals(newPassword) || loginUser(login, oldPassword)==null || login==null || login.equals("") ||
-                oldPassword==null || oldPassword.equals("") || newPassword==null || newPassword.equals("")) return false;
+                oldPassword==null || oldPassword.equals("") || newPassword==null || newPassword.equals("") ||
+                newPassword.length()<6) return false;
         String query = "UPDATE user SET password = ? WHERE login LIKE ?";
         String hash = new Hash().getMd5(newPassword);
         try{
@@ -76,8 +96,24 @@ public class Database {
         return false;
     }
 
-    public boolean sendMessage(int id, String toWho, String text){
-
+    public boolean sendMessage(int fromUser, String toUser, String text){
+        int toUserID = getUserID(toUser);
+        if(text==null || text.equals("") || fromUser==toUserID) return false;
+        String query = "INSERT INTO message (fromUser, toUser, text) VALUES(?, ?, ?)";
+        try{
+            Connection con = getConnection();
+            if(con!=null){
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setInt(1, fromUser);
+                ps.setInt(2, toUserID);
+                ps.setString(3, text);
+                int result = ps.executeUpdate();
+                if(result>0) return true;
+            }
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 

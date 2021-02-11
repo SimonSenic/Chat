@@ -20,8 +20,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         //launch(args);
-        //new Database().insertNewUser();
-        //new Database().changePassword();
-
+        Database db = new Database();
+        //db.insertNewUser();
+        //db.changePassword();
+        db.sendMessage(9, "", "");
     }
 }
