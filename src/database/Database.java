@@ -56,7 +56,23 @@ public class Database {
     }
 
     public boolean changePassword(String login, String oldPassword, String newPassword){
-
+        if(oldPassword.equals(newPassword) || loginUser(login, oldPassword)==null || login==null || login.equals("") ||
+                oldPassword==null || oldPassword.equals("") || newPassword==null || newPassword.equals("")) return false;
+        String query = "UPDATE user SET password = ? WHERE login LIKE ?";
+        String hash = new Hash().getMd5(newPassword);
+        try{
+            Connection con = getConnection();
+            if(con!=null){
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, hash);
+                ps.setString(2, login);
+                int result = ps.executeUpdate();
+                if(result==1) return true;
+            }
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 
