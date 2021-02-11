@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
     private static String url="jdbc:mysql://itsovy.sk:3306/chat2021";
@@ -115,6 +116,32 @@ public class Database {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ArrayList<Message> getMyMessages(String login){
+        ArrayList<Message> list = new ArrayList<>();
+        String query = "SELECT * FROM message WHERE fromUser LIKE ?";
+        try{
+            Connection con = getConnection();
+            if(con!=null){
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, login);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    int id = rs.getInt("id");
+                    Date dt = rs.getDate("dt");
+                    String fromUser = rs.getString("fromUser"); //unfinished
+                    String toUser = rs.getString("toUser"); //unfinished
+                    String text = rs.getString("text");
+                    Message message = new Message(id, dt, fromUser, toUser, text);
+                    list.add(message);
+                }
+            }
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }
