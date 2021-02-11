@@ -1,3 +1,5 @@
+package database;
+
 import java.sql.*;
 
 public class Database {
@@ -54,6 +56,11 @@ public class Database {
     }
 
     public boolean changePassword(String login, String oldPassword, String newPassword){
+
+        return false;
+    }
+
+    public boolean sendMessage(int id, String toWho, String text){
 
         return false;
     }

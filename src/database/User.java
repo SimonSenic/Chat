@@ -1,3 +1,5 @@
+package database;
+
 public class User {
     String login, password;
     int id;
