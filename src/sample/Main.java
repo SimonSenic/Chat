@@ -28,5 +28,7 @@ public class Main extends Application {
         //db.insertNewUser();
         //db.changePassword();
         db.sendMessage(9, "", "");
+        ArrayList<Message> list = db.getMyMessages("Simon");
+        for(Message temp : list) System.out.println(temp.getId() +" " +temp.getDt() +" " +temp.getFromUser() +" " +temp.getToUser() +" " +temp.getText());
     }
 }

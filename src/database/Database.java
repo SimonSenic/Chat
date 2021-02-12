@@ -137,11 +137,28 @@ public class Database {
                     list.add(message);
                 }
             }
+            deleteMyMessages(login);
             con.close();
         }catch (Exception e){
             e.printStackTrace();
         }
         return list;
+    }
+
+    public void deleteMyMessages(String login){
+        int toUserID = getUserID(login);
+        String query = "DELETE FROM message WHERE toUser LIKE ?";
+        try{
+            Connection con = getConnection();
+            if(con!=null){
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setInt(1, toUserID);
+                ps.executeUpdate();
+            }
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
