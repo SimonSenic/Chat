@@ -32,6 +32,25 @@ public class Database {
         return 0;
     }
 
+    private static String getUserLogin(int id){
+        if(id<=0) return null;
+        String query = "SELECT login FROM user WHERE id LIKE ?";
+        try{
+            Connection con = getConnection();
+            if(con!=null){
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next())
+                    return rs.getString("login");
+            }
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean insertNewUser(String login, String password){
         if(login==null || login.equals("") || password==null || password.equals("") || password.length()<6) return false;
         String query = "INSERT INTO user (login, password) VALUES (?, ?)";
@@ -130,10 +149,10 @@ public class Database {
                 while(rs.next()){
                     int id = rs.getInt("id");
                     Date dt = rs.getDate("dt");
-                    String fromUser = rs.getString("fromUser"); //unfinished
-                    String toUser = rs.getString("toUser"); //unfinished
+                    int fromUser = rs.getInt("fromUser"); //unfinished
+                    int toUser = rs.getInt("toUser"); //unfinished
                     String text = rs.getString("text");
-                    Message message = new Message(id, dt, fromUser, toUser, text);
+                    Message message = new Message(id, dt, getUserLogin(fromUser), getUserLogin(toUser), text);
                     list.add(message);
                 }
             }
