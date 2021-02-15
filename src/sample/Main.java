@@ -21,13 +21,12 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
         Database db = new Database();
         //db.insertNewUser();
         //db.changePassword();
-        db.sendMessage(9, "", "");
+        db.sendMessage(4, "", "");
         ArrayList<Message> list = db.getMyMessages("Simon");
         for(Message temp : list) System.out.println(temp.getId() +" " +temp.getDt() +" " +temp.getFromUser() +" " +temp.getToUser() +" " +temp.getText());
     }
