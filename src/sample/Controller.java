@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Controller {
     public TextField txt_login;
     public PasswordField txt_password;
-    public Text label_warning;
+    public Text txt_warning;
     public Button btn_login;
 
     public void btn_click(ActionEvent actionEvent){
@@ -24,7 +24,7 @@ public class Controller {
             String password = txt_password.getText().trim();
             Database db = new Database();
             User user = db.loginUser(login, password);
-            if(user==null) label_warning.setVisible(true);
+            if(user==null) txt_warning.setVisible(true);
             else{
                 btn_login.getScene().getWindow().hide();
                 openFinalWindow();
