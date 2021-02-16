@@ -14,7 +14,8 @@
       <TextField fx:id="txt_to" layoutX="474.0" layoutY="41.0" promptText="To whom" />
       <Button fx:id="btn_send" layoutX="76.0" layoutY="73.0" mnemonicParsing="false" onAction="#btn_send_click" prefHeight="17.0" prefWidth="43.0" text="Send" />
       <Label layoutX="76.0" layoutY="130.0" text="Messages:" />
-      <TextArea layoutX="76.0" layoutY="154.0" prefHeight="200.0" prefWidth="545.0" />
-      <Button fx:id="btn_refresh" layoutX="651.0" layoutY="241.0" mnemonicParsing="false" text="Refresh" />
+      <TextArea fx:id="txt_archive" layoutX="76.0" layoutY="154.0" prefHeight="200.0" prefWidth="545.0" />
+      <Button fx:id="btn_refresh" layoutX="651.0" layoutY="241.0" mnemonicParsing="false" onAction="#btn_refresh_click" text="Refresh" />
+      <Label fx:id="lab_warning" layoutX="130.0" layoutY="77.0" prefHeight="17.0" prefWidth="264.0" text="Warning: Empty message or user doesn't exist." textFill="RED" visible="false" />
    </children>
 </Pane>
