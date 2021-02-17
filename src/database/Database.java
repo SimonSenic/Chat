@@ -118,7 +118,7 @@ public class Database {
 
     public boolean sendMessage(int fromUser, String toUser, String text){
         int toUserID = getUserID(toUser);
-        if(text==null || text.equals("") || fromUser==toUserID) return false;
+        if(text==null || text.equals("") || fromUser==toUserID || toUser==null || toUser.equals("") || getUserID(toUser)==0) return false;
         String query = "INSERT INTO message (fromUser, toUser, text) VALUES(?, ?, ?)";
         try{
             Connection con = getConnection();
@@ -139,24 +139,24 @@ public class Database {
 
     public ArrayList<Message> getMyMessages(String login){
         ArrayList<Message> list = new ArrayList<>();
-        String query = "SELECT * FROM message WHERE fromUser LIKE ?";
+        int loginID = getUserID(login);
+        String query = "SELECT * FROM message WHERE toUser LIKE ?";
         try{
             Connection con = getConnection();
             if(con!=null){
                 PreparedStatement ps = con.prepareStatement(query);
-                ps.setString(1, login);
+                ps.setInt(1, loginID);
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){
                     int id = rs.getInt("id");
                     Date dt = rs.getDate("dt");
-                    int fromUser = rs.getInt("fromUser"); //unfinished
-                    int toUser = rs.getInt("toUser"); //unfinished
+                    int fromUser = rs.getInt("fromUser");
                     String text = rs.getString("text");
-                    Message message = new Message(id, dt, getUserLogin(fromUser), getUserLogin(toUser), text);
+                    Message message = new Message(id, dt, getUserLogin(fromUser), login, text);
                     list.add(message);
                 }
             }
-            deleteMyMessages(login);
+            //deleteMyMessages(login);
             con.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -165,13 +165,13 @@ public class Database {
     }
 
     public void deleteMyMessages(String login){
-        int toUserID = getUserID(login);
+        int loginID = getUserID(login);
         String query = "DELETE FROM message WHERE toUser LIKE ?";
         try{
             Connection con = getConnection();
             if(con!=null){
                 PreparedStatement ps = con.prepareStatement(query);
-                ps.setInt(1, toUserID);
+                ps.setInt(1, loginID);
                 ps.executeUpdate();
             }
             con.close();

@@ -5,10 +5,7 @@ import database.Message;
 import database.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
 
@@ -27,7 +24,7 @@ public class CoreController {
     @FXML
     Label lab_warning;
     @FXML
-    TextArea txt_archive;
+    ListView txt_archive;
 
     public void btn_logout_click(ActionEvent actionEvent){
         btn_logout.getScene().getWindow().hide();
@@ -54,7 +51,8 @@ public class CoreController {
 
     public void btn_refresh_click(ActionEvent actionEvent){
         ArrayList<Message> list = new Database().getMyMessages(user.getLogin());
-        txt_archive.setText(list.toString());
+        for(Message temp : list)
+            txt_archive.getItems().add(temp.getDt().toString() +" " +temp.getFromUser() +": " +temp.getText() +"\n");
     }
 
 }

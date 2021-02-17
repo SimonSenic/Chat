@@ -9,9 +9,9 @@
       <Pane prefHeight="246.0" prefWidth="437.0">
          <children>
             <Label layoutX="20.0" layoutY="86.0" text="Login:" />
+            <TextField fx:id="txt_login" layoutX="110.0" layoutY="81.0" prefHeight="26.0" prefWidth="161.0" />
             <PasswordField fx:id="txt_password" layoutX="110.0" layoutY="126.0" prefHeight="26.0" prefWidth="161.0" />
             <Label layoutX="20.0" layoutY="131.0" text="Password:" />
-            <TextField fx:id="txt_login" layoutX="110.0" layoutY="81.0" prefHeight="26.0" prefWidth="161.0" />
             <Button fx:id="btn_login" layoutX="206.0" layoutY="185.0" mnemonicParsing="false" onAction="#btn_click" prefHeight="35.0" prefWidth="63.0" text="Login" />
             <Text fx:id="lab_warning" fill="RED" layoutX="130.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong login or password!" visible="false" wrappingWidth="139.13671875" />
          </children></Pane>
