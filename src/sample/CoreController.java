@@ -3,9 +3,13 @@ package sample;
 import database.Database;
 import database.Message;
 import database.User;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -24,7 +28,11 @@ public class CoreController {
     @FXML
     Label lab_warning;
     @FXML
-    ListView txt_archive;
+    ListView lv_archive;
+    @FXML
+    ListView lv_users;
+    @FXML
+    Label lab_password;
 
     public void btn_logout_click(ActionEvent actionEvent){
         btn_logout.getScene().getWindow().hide();
@@ -49,10 +57,35 @@ public class CoreController {
         }else lab_warning.setVisible(true);
     }
 
-    public void btn_refresh_click(ActionEvent actionEvent){
+    public void refreshMessages(){
         ArrayList<Message> list = new Database().getMyMessages(user.getLogin());
+        lv_archive.getItems().clear();
+        lv_users.getItems().clear();
         for(Message temp : list)
-            txt_archive.getItems().add(temp.getDt().toString() +" " +temp.getFromUser() +": " +temp.getText() +"\n");
+            lv_archive.getItems().add(temp.getDt().toString() +" " +temp.getFromUser() +": " +temp.getText() +"\n");
+        //for()
+    }
+
+    public void btn_refresh_click(ActionEvent actionEvent){
+        refreshMessages();
+    }
+
+    public void timer(){
+        Timeline oneMinuteWonder = new Timeline(
+                new KeyFrame(Duration.seconds(60),
+                        new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                refreshMessages();
+                            }
+                        }));
+        oneMinuteWonder.setCycleCount(Timeline.INDEFINITE);
+        oneMinuteWonder.play();
+    }
+
+    public void lab_password_click(ActionEvent actionEvent){
+
     }
 
 }
