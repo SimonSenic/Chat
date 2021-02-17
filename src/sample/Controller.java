@@ -45,7 +45,7 @@ public class Controller {
         CoreController cc = root.getController();
         cc.setUser(user);
         cc.setLab_login();
-        cc.refreshMessages();
+        cc.refreshApp();
         cc.timer();
     }
 }

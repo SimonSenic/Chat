@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CoreController">
    <children>
-      <Button fx:id="btn_logout" layoutX="695.0" layoutY="68.0" mnemonicParsing="false" onAction="#btn_logout_click" text="Log Out" />
-      <Label layoutX="695.0" layoutY="14.0" prefHeight="17.0" prefWidth="67.0" text="Logged As:" />
-      <Label fx:id="lab_login" alignment="CENTER_RIGHT" layoutX="633.0" layoutY="31.0" prefHeight="17.0" prefWidth="120.0" text="Login" textOverrun="CLIP" />
+      <Button fx:id="btn_logout" layoutX="695.0" layoutY="74.0" mnemonicParsing="false" onAction="#btn_logout_click" text="Log Out" />
+      <Label layoutX="695.0" layoutY="20.0" prefHeight="17.0" prefWidth="67.0" text="Logged As:" />
+      <Label fx:id="lab_login" alignment="CENTER_RIGHT" layoutX="633.0" layoutY="37.0" prefHeight="17.0" prefWidth="120.0" text="Login" textOverrun="CLIP" />
       <Label layoutX="46.0" layoutY="19.0" text="Message" />
       <Label layoutX="444.0" layoutY="20.0" text="To" />
       <TextField fx:id="txt_message" layoutX="46.0" layoutY="41.0" prefHeight="25.0" prefWidth="387.0" promptText="Your message..." />
       <TextField fx:id="txt_to" layoutX="444.0" layoutY="41.0" promptText="To whom" />
-      <Button fx:id="btn_send" layoutX="46.0" layoutY="73.0" mnemonicParsing="false" onAction="#btn_send_click" prefHeight="17.0" prefWidth="43.0" text="Send" />
-      <Label layoutX="46.0" layoutY="130.0" text="My Messages:" />
-      <Button fx:id="btn_refresh" layoutX="46.0" layoutY="362.0" mnemonicParsing="false" onAction="#btn_refresh_click" text="Refresh" />
-      <Label fx:id="lab_warning" layoutX="130.0" layoutY="77.0" prefHeight="17.0" prefWidth="264.0" text="Warning: Empty message or user doesn't exist." textFill="RED" visible="false" />
-      <ListView fx:id="lv_archive" layoutX="46.0" layoutY="154.0" prefHeight="200.0" prefWidth="545.0" />
-      <ListView fx:id="lv_users" layoutX="607.0" layoutY="154.0" prefHeight="200.0" prefWidth="149.0" />
-      <Label layoutX="607.0" layoutY="130.0" text="All Users:" />
-      <Label fx:id="lab_password" layoutX="659.0" layoutY="48.0" onMouseClicked="#lab_password_click" prefHeight="17.0" prefWidth="94.0" text="Change Password" textFill="#0050ff" />
+      <Button fx:id="btn_send" layoutX="46.0" layoutY="78.0" mnemonicParsing="false" onAction="#btn_send_click" prefHeight="17.0" prefWidth="43.0" text="Send" />
+      <Label layoutX="46.0" layoutY="127.0" text="My Messages:" />
+      <Button fx:id="btn_refresh" layoutX="46.0" layoutY="363.0" mnemonicParsing="false" onAction="#btn_refresh_click" text="Refresh" />
+      <Label fx:id="lab_warning" layoutX="102.0" layoutY="82.0" prefHeight="17.0" prefWidth="264.0" text="Warning: Empty message or user doesn't exist." textFill="RED" visible="false" />
+      <ListView fx:id="lv_archive" layoutX="46.0" layoutY="151.0" prefHeight="200.0" prefWidth="545.0" />
+      <ListView fx:id="lv_users" layoutX="607.0" layoutY="151.0" prefHeight="200.0" prefWidth="149.0" />
+      <Label layoutX="607.0" layoutY="127.0" text="All Users:" />
+      <Label fx:id="lab_password" layoutX="659.0" layoutY="53.0" onMouseClicked="#lab_password_click" prefHeight="17.0" prefWidth="94.0" text="Change Password" textFill="#0050ff">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Label>
    </children>
 </Pane>

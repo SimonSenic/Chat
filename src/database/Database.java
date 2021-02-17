@@ -180,4 +180,24 @@ public class Database {
         }
     }
 
+    public ArrayList<String> getAllUsers(){
+        ArrayList<String> list = new ArrayList<>();
+        String query = "SELECT login FROM user";
+        try {
+            Connection con = getConnection();
+            if(con!=null){
+                PreparedStatement ps = con.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    String login = rs.getString("login");
+                    list.add(login);
+                }
+                con.close();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

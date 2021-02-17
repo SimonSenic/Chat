@@ -57,17 +57,19 @@ public class CoreController {
         }else lab_warning.setVisible(true);
     }
 
-    public void refreshMessages(){
+    public void refreshApp(){
         ArrayList<Message> list = new Database().getMyMessages(user.getLogin());
+        ArrayList<String> list2 = new Database().getAllUsers();
         lv_archive.getItems().clear();
         lv_users.getItems().clear();
         for(Message temp : list)
-            lv_archive.getItems().add(temp.getDt().toString() +" " +temp.getFromUser() +": " +temp.getText() +"\n");
-        //for()
+            lv_archive.getItems().add(temp.getDt().toString() +" " +temp.getFromUser() +": " +temp.getText());
+        for(String temp : list2)
+            lv_users.getItems().add(temp);
     }
 
     public void btn_refresh_click(ActionEvent actionEvent){
-        refreshMessages();
+        refreshApp();
     }
 
     public void timer(){
@@ -77,7 +79,7 @@ public class CoreController {
 
                             @Override
                             public void handle(ActionEvent event) {
-                                refreshMessages();
+                                refreshApp();
                             }
                         }));
         oneMinuteWonder.setCycleCount(Timeline.INDEFINITE);
