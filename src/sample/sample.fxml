@@ -6,14 +6,14 @@
 
 <GridPane alignment="center" hgap="10" prefHeight="312.0" prefWidth="589.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Pane prefHeight="246.0" prefWidth="437.0">
+      <Pane prefHeight="246.0" prefWidth="393.0">
          <children>
-            <Label layoutX="20.0" layoutY="86.0" text="Login:" />
-            <TextField fx:id="txt_login" layoutX="110.0" layoutY="81.0" prefHeight="26.0" prefWidth="161.0" />
-            <PasswordField fx:id="txt_password" layoutX="110.0" layoutY="126.0" prefHeight="26.0" prefWidth="161.0" />
-            <Label layoutX="20.0" layoutY="131.0" text="Password:" />
-            <Button fx:id="btn_login" layoutX="206.0" layoutY="185.0" mnemonicParsing="false" onAction="#btn_click" prefHeight="35.0" prefWidth="63.0" text="Login" />
-            <Text fx:id="lab_warning" fill="RED" layoutX="130.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong login or password!" visible="false" wrappingWidth="139.13671875" />
+            <Label layoutX="50.0" layoutY="76.0" text="Login:" />
+            <TextField fx:id="txt_login" layoutX="140.0" layoutY="71.0" prefHeight="26.0" prefWidth="161.0" />
+            <PasswordField fx:id="txt_password" layoutX="140.0" layoutY="116.0" prefHeight="26.0" prefWidth="161.0" />
+            <Label layoutX="50.0" layoutY="121.0" text="Password:" />
+            <Button fx:id="btn_login" layoutX="236.0" layoutY="175.0" mnemonicParsing="false" onAction="#btn_click" prefHeight="35.0" prefWidth="63.0" text="Login" />
+            <Text fx:id="lab_warning" fill="RED" layoutX="159.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong login or password!" visible="false" wrappingWidth="139.13671875" />
          </children></Pane>
    </children>
    <columnConstraints>

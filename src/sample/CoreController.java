@@ -8,7 +8,10 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -33,6 +36,16 @@ public class CoreController {
     ListView lv_users;
     @FXML
     Label lab_password;
+    @FXML
+    TextField txt_oldPassword;
+    @FXML
+    TextField txt_newPassword;
+    @FXML
+    TextField txt_repeatPassword;
+    @FXML
+    Label lab_warning2;
+    @FXML
+    Button btn_save;
 
     public void btn_logout_click(ActionEvent actionEvent){
         btn_logout.getScene().getWindow().hide();
@@ -86,8 +99,51 @@ public class CoreController {
         oneMinuteWonder.play();
     }
 
-    public void lab_password_click(ActionEvent actionEvent){
-
+    public void lab_password_click(){
+        try{
+            openPasswordWindow();
+            //btn_logout.getScene().getWindow().hide();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
+    public void btn_save_click(ActionEvent actionEvent){
+        String oldPassword = txt_oldPassword.getText().trim();
+        String newPassword = txt_newPassword.getText().trim();
+        String repeatPassword = txt_repeatPassword.getText().trim();
+        if(!newPassword.equals(repeatPassword) || newPassword.length()<6 || newPassword==null || newPassword.equals("") ||
+        !oldPassword.equals(user.getPassword()) || oldPassword==null || oldPassword.equals("") ||
+        repeatPassword==null || repeatPassword.equals("") || repeatPassword.length()<6) lab_warning2.setVisible(true);
+        Database db = new Database();
+        if(db.changePassword(user.getLogin(), oldPassword, newPassword)){
+            btn_save.getScene().getWindow().hide();
+        }else lab_warning2.setVisible(true);
+    }
+
+    public void btn_cancel_click(ActionEvent actionEvent){
+        btn_save.getScene().getWindow().hide();
+    }
+
+    public void openPasswordWindow() throws Exception{
+        FXMLLoader root = new FXMLLoader();
+        root.setLocation(getClass().getResource("password.fxml"));
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Change Password");
+        primaryStage.setScene(new Scene(root.load(), 405, 252));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
+    /*public void aha(){
+        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MyDataModel>() {
+
+            @Override
+            public void changed(ObservableValue<? extends MyDataModel> observable, MyDataModel oldValue, MyDataModel newValue) {
+                // Your action here
+                System.out.println("Selected item: " + newValue);
+            }
+        });
+    }*/
 
 }
