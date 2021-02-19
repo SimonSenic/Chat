@@ -1,6 +1,7 @@
 package sample;
 
 import database.Database;
+import database.Hash;
 import database.Message;
 import database.User;
 import javafx.animation.KeyFrame;
@@ -112,13 +113,9 @@ public class CoreController {
         String oldPassword = txt_oldPassword.getText().trim();
         String newPassword = txt_newPassword.getText().trim();
         String repeatPassword = txt_repeatPassword.getText().trim();
-        if(!newPassword.equals(repeatPassword) || newPassword.length()<6 || newPassword==null || newPassword.equals("") ||
-        !oldPassword.equals(user.getPassword()) || oldPassword==null || oldPassword.equals("") ||
-        repeatPassword==null || repeatPassword.equals("") || repeatPassword.length()<6) lab_warning2.setVisible(true);
-        Database db = new Database();
-        if(db.changePassword(user.getLogin(), oldPassword, newPassword)){
-            btn_save.getScene().getWindow().hide();
-        }else lab_warning2.setVisible(true);
+        if(!newPassword.equals(repeatPassword) || newPassword.length()<6 || newPassword==null || newPassword.equals("") || newPassword.equals(oldPassword) ||
+        !new Hash().getMd5(oldPassword).equals(user.getPassword())) lab_warning2.setVisible(true);
+        else if(new Database().changePassword(user.getLogin(), oldPassword, newPassword)==true) btn_save.getScene().getWindow().hide();
     }
 
     public void btn_cancel_click(ActionEvent actionEvent){
@@ -133,6 +130,8 @@ public class CoreController {
         primaryStage.setScene(new Scene(root.load(), 405, 252));
         primaryStage.setResizable(false);
         primaryStage.show();
+        CoreController cc = root.getController();
+        cc.setUser(user);
     }
 
     /*public void aha(){
